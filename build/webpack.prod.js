@@ -1,38 +1,38 @@
-const webpack = require("webpack");
-const { merge } = require("webpack-merge");
-const path = require("path");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const webpack = require('webpack')
+const {merge} = require('webpack-merge')
+const path = require('path')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 // const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 // const { extendDefaultPlugins } = require("svgo");
-const TerserPlugin = require("terser-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require('terser-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const base = require("./webpack.base");
+const base = require('./webpack.base')
 
-const ROOT_PATH = path.resolve(__dirname, "./");
-const DIST_PATH = path.resolve(ROOT_PATH, "./dist");
+const ROOT_PATH = path.resolve(__dirname, './')
+const DIST_PATH = path.resolve(ROOT_PATH, './dist')
 
 module.exports = merge(base, {
-  mode: "production",
+  mode: 'production',
   devtool: false,
   output: {
     path: DIST_PATH,
-    filename: "js/[name].[chunkhash:8].js",
-    chunkFilename: "js/[name].[chunkhash:8].js",
+    filename: 'js/[name].[chunkhash:8].js',
+    chunkFilename: 'js/[name].[chunkhash:8].js',
   },
   plugins: [
     new webpack.ProgressPlugin({
       modulesCount: 5000,
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[contenthash:8].css",
-      chunkFilename: "[name].[contenthash:8].chunk.css",
+      filename: '[name].[contenthash:8].css',
+      chunkFilename: '[name].[contenthash:8].chunk.css',
     }),
   ],
   optimization: {
-    nodeEnv: "production",
+    nodeEnv: 'production',
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
@@ -130,4 +130,4 @@ module.exports = merge(base, {
       new CssMinimizerPlugin(),
     ],
   },
-});
+})
