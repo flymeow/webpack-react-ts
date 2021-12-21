@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const {merge} = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const path = require('path')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 // const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
@@ -10,7 +10,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const base = require('./webpack.base')
 
 const ROOT_PATH = path.resolve(__dirname, './')
-const DIST_PATH = path.resolve(ROOT_PATH, './dist')
+const DIST_PATH = path.resolve(ROOT_PATH, '../dist')
 
 module.exports = merge(base, {
   mode: 'production',
@@ -18,16 +18,16 @@ module.exports = merge(base, {
   output: {
     path: DIST_PATH,
     filename: 'js/[name].[chunkhash:8].js',
-    chunkFilename: 'js/[name].[chunkhash:8].js',
+    chunkFilename: 'js/[name].[chunkhash:8].js'
   },
   plugins: [
     new webpack.ProgressPlugin({
-      modulesCount: 5000,
+      modulesCount: 5000
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css',
-      chunkFilename: '[name].[contenthash:8].chunk.css',
-    }),
+      chunkFilename: '[name].[contenthash:8].chunk.css'
+    })
   ],
   optimization: {
     nodeEnv: 'production',
@@ -36,14 +36,14 @@ module.exports = merge(base, {
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          priority: -10,
+          priority: -10
         },
         default: {
           minChunks: 2,
           priority: -20,
-          reuseExistingChunk: true,
-        },
-      },
+          reuseExistingChunk: true
+        }
+      }
     },
     minimize: true,
     minimizer: [
@@ -55,7 +55,7 @@ module.exports = merge(base, {
             // into invalid ecma 5 code. This is why the 'compress' and 'output'
             // sections only apply transformations that are ecma 5 safe
             // https://github.com/facebook/create-react-app/pull/4234
-            ecma: 8,
+            ecma: 8
           },
           compress: {
             ecma: 5,
@@ -69,10 +69,10 @@ module.exports = merge(base, {
             // https://github.com/facebook/create-react-app/issues/5250
             // Pending further investigation:
             // https://github.com/terser-js/terser/issues/120
-            inline: 2,
+            inline: 2
           },
           mangle: {
-            safari10: true,
+            safari10: true
           },
           // Added for profiling in devtools
           // keep_classnames: isEnvProductionProfile,
@@ -83,9 +83,9 @@ module.exports = merge(base, {
             // Turned on because emoji and regex is not minified properly using default
             // https://github.com/facebook/create-react-app/issues/2488
             // eslint-disable-next-line camelcase
-            ascii_only: true,
-          },
-        },
+            ascii_only: true
+          }
+        }
       }),
       // new ImageMinimizerPlugin({
       //   minimizerOptions: {
@@ -127,7 +127,7 @@ module.exports = merge(base, {
       //     ],
       //   },
       // }),
-      new CssMinimizerPlugin(),
-    ],
-  },
+      new CssMinimizerPlugin()
+    ]
+  }
 })
